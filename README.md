@@ -2,13 +2,16 @@
 
 ## users テーブル
 
-| Column      | type   | Options     |
-| ----------- | ------ | ----------- |
-| nickname    | string | null: false |
-| email       | string | null: false |
-| password    | string | null: false |
-| name        | string | null: false |
-| birthday    | string | null: false |  
+| Column              | type   | Options     |
+| ------------------- | ------ | ----------- |
+| nickname            | string | null: false |
+| email               | string | null: false |
+| encrypted_password  | string | null: false |
+| last_name           | string | null: false |
+| first_name          | string | null: false |
+| last_name_furigana  | string | null: false |
+| first_name_furigana | string | null: false |
+| birthday            | date   | null: false |  
 
 ### Association
 
@@ -23,19 +26,19 @@
 | ------------- | ---------- | ----------- |
 | title         | string     | null: false |
 | info          | text       | null: false |
-| category      | string     | null: false |
-| quality       | string     | null: false |
-| delivery_cost | string     | null: false |
-| delivery_area | string     | null: false |
-| delivery_time | string     | null: false |
-| price         | string     | null: false |
-| user          | references | null: false |
+| category_id   | integer    | null: false |
+| quality       | integer    | null: false |
+| delivery_cost | integer    | null: false |
+| delivery_area | integer    | null: false |
+| delivery_time | integer    | null: false |
+| price         | integer    | null: false |
+| user_id       | references | null: false |
 
 
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_many   :comments
 - has_one    :buys
 
@@ -44,13 +47,13 @@
 | Column      | type       | Options     |
 | ----------- | ---------- | ----------- |
 | text        | string     | null: false |
-| user        | references | null: false |
-| item        | references | null: false |
+| user_id     | references | null: false |
+| item_id     | references | null: false |
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
 
 
 
@@ -64,9 +67,21 @@
 | municipality       | string     | null: false |
 | address            | string     | null: false |
 | phone_number       | string     | null: false |
-| user               | references | null: false |
+| user_id            | references | null: false |
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
+- has_one    :purchase record
+
+
+## purchase records テーブル
+
+| Column             | type       | Options     |
+| ------------------ | ---------- | ----------- |
+| purchase_record    | integer    | null: false |
+| user_id            | references | null: false |
+| item_id            | references | null: false |
+
+-belongs_to :buy

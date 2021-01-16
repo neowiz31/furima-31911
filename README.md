@@ -18,70 +18,85 @@
 - has_many :items
 - has_many :comments
 - has_one  :buys
+- has_many :Address
 
 
 ## items テーブル
 
-| Column        | type       | Options     |
-| ------------- | ---------- | ----------- |
-| title         | string     | null: false |
-| info          | text       | null: false |
-| category_id   | integer    | null: false |
-| quality       | integer    | null: false |
-| delivery_cost | integer    | null: false |
-| delivery_area | integer    | null: false |
-| delivery_time | integer    | null: false |
-| price         | integer    | null: false |
-| user_id       | references | null: false |
-
-
+| Column        | type       | Options           |
+| ------------- | ---------- | ----------------- |
+| title         | string     | null: false       |
+| info          | text       | null: false       |
+| category_id   | integer    | null: false       |
+| quality_id    | integer    | null: false       |
+| price         | string     | null: false       |
+| user          | references | foreign_key: true |
 
 ### Association
 
-- belongs_to :user
+- belongs_to :users
 - has_many   :comments
 - has_one    :buys
 
+
 ## comments テーブル
 
-| Column      | type       | Options     |
-| ----------- | ---------- | ----------- |
-| text        | string     | null: false |
-| user_id     | references | null: false |
-| item_id     | references | null: false |
+| Column      | type       | Options           |
+| ----------- | ---------- | ----------------- |
+| text        | string     | null: false       |
+| user        | references | foreign_key: true |
+| item        | references | foreign_key: true |
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
-
+- belongs_to :users
+- belongs_to :items
 
 
 ## buys テーブル
 
 | Column             | type       | Options     |
 | ------------------ | ---------- | ----------- |
-| credit_card_number | string     | null: false |
-| postal_cord        | string     | null: false |
-| prefectures        | string     | null: false |
-| municipality       | string     | null: false |
-| address            | string     | null: false |
-| phone_number       | string     | null: false |
-| user_id            | references | null: false |
+| delivery_cost_id   | integer    | null: false |
+| delivery_area_id   | integer    | null: false |
+| delivery_time_id   | integer    | null: false |
+
+### Association
+
+- belongs_to :users
+- belongs_to :items
+- has_one    :purchase_record
+
+
+## purchase_records テーブル
+
+| Column             | type       | Options           |
+| ------------------ | ---------- | ----------------- |
+| user               | references | foreign_key: true |
+| item               | references | foreign_key: true |
+
+
+### Association
+
+
+- belongs_to :buy
+- belongs_to :address
+
+
+## address テーブル
+
+| Column             | type       | Options           |
+| ------------------ | ---------- | ----------------- |
+| postal_cord        | string     | null: false       |
+| prefectures_id     | integer    | null: false       |
+| city               | string     | null: false       |
+| house_number       | string     | null: false       |
+| building_name      | string     | null: false       |
+| phone_number       | string     | null: false       |
+| user               | references | foreign_key: true |
+
 
 ### Association
 
 - belongs_to :user
-- belongs_to :item
-- has_one    :purchase record
-
-
-## purchase records テーブル
-
-| Column             | type       | Options     |
-| ------------------ | ---------- | ----------- |
-| purchase_record    | integer    | null: false |
-| user_id            | references | null: false |
-| item_id            | references | null: false |
-
--belongs_to :buy
+- has_one :purchase_record

@@ -29,7 +29,7 @@
 | category_id      | integer    | null: false       |
 | quality_id       | integer    | null: false       |
 | delivery_cost_id | integer    | null: false       |
-| prefectures_id   | integer    | null: false       |
+| prefecture_id    | integer    | null: false       |
 | delivery_time_id | integer    | null: false       |
 | price            | integer    | null: false       |
 | user             | references | foreign_key: true |
@@ -75,12 +75,12 @@
 | Column             | type       | Options           |
 | ------------------ | ---------- | ----------------- |
 | postal_cord        | string     | null: false       |
-| prefectures_id     | integer    | null: false       |
+| prefecture_id      | integer    | null: false       |
 | city               | string     | null: false       |
 | house_number       | string     | null: false       |
 | building_name      | string     |                   |
-| phone_number       | integer    | null: false       |
-| user               | references | foreign_key: true |
+| phone_number       | string     | null: false       |
+| purchase_record    | references | foreign_key: true |
 
 
 ### Association

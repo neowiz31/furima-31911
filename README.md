@@ -11,7 +11,7 @@
 | first_name          | string | null: false               |
 | last_name_kana      | string | null: false               |
 | first_name_kana     | string | null: false               |
-| birth_day            | date   | null: false               |  
+| birth_day           | date   | null: false               |  
 
 ### Association
 
@@ -24,10 +24,10 @@
 
 | Column           | type       | Options           |
 | ---------------- | ---------- | ----------------- |
-| title            | string     | null: false       |
-| info             | text       | null: false       |
-| category_id      | integer    | null: false       |
-| quality_id       | integer    | null: false       |
+| item_name        | string     | null: false       |
+| item_info        | text       | null: false       |
+| item_category_id | integer    | null: false       |
+| item_quality_id  | integer    | null: false       |
 | delivery_cost_id | integer    | null: false       |
 | prefecture_id    | integer    | null: false       |
 | delivery_time_id | integer    | null: false       |

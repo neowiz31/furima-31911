@@ -12,11 +12,12 @@ RSpec.describe Item, type: :model do
     end
     context '商品新規登録ができないとき' do
       it '商品画像が無ければ登録できない' do
-        @item.image.attached?
+        @item.image = nil
         @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it '商品名が無ければ登録できない' do
-        @item.item_name = ''
+        @item.item_name = ""
         @item.valid?
         expect(@item.errors.full_messages).to include("Item name can't be blank")
       end
@@ -26,27 +27,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Item info can't be blank")
       end
       it 'カテゴリーが「---」では登録できない' do
-        @item.item_category_id = '1'
+        @item.item_category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Item category must be other than 1')
       end
       it '商品の状態が「---」では登録できない' do
-        @item.item_category_id = '1'
+        @item.item_category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Item category must be other than 1')
       end
       it '配送料の負担が「---」では登録できない' do
-        @item.delivery_cost_id = '1'
+        @item.delivery_cost_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Delivery cost must be other than 1')
       end
       it '発送元の地域が「---」では登録できない' do
-        @item.prefecture_id = '1'
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
       end
       it '発送までの日数が「---」では登録できない' do
-        @item.delivery_time_id = '1'
+        @item.delivery_time_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Delivery time must be other than 1')
       end

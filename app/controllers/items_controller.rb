@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create,:update]
+  before_action :authenticate_user!, only: [:new, :create, :update]
   before_action :move_to_sign_in, except: [:index, :show]
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
       render :new
     end
   end
-  
+
   def show
     @item = Item.find(params[:id])
   end
@@ -43,8 +43,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_sign_in
-    unless user_signed_in?
-      redirect_to action: :new
-    end
+    redirect_to action: :new unless user_signed_in?
   end
 end

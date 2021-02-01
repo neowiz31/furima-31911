@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update]
-  before_action :move_to_sign_in, except: [:index, :show]
+  before_action :authenticate_user!, only: [:new, :create ]
+  before_action :correct_user, only: [:edit, :update]
   def index
     @items = Item.includes(:user).order('created_at DESC')
   end
@@ -42,7 +42,16 @@ class ItemsController < ApplicationController
                                  :item_category_id, :item_quality_id, :prefecture_id, :price).merge(user_id: current_user.id)
   end
 
-  def move_to_sign_in
-    redirect_to user_session_path
+  def correct_user
+    if user_signed_in?
+      if
+      @item = current_user.items.find_by(id: params[:id])
+        unless @item
+          redirect_to root_path
+        end
+      end
+    else
+      redirect_to new_user_session_path
+    end  
   end
 end

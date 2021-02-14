@@ -1,7 +1,10 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_params, only: [:show, :edit, :destroy, :update]
+  before_action :correct_item, only: [:edit, :update, :destory]
   before_action :correct_user, only: [:edit, :update, :destory]
+
+
   def index
     @items = Item.includes(:user).order('created_at DESC')
   end
@@ -50,5 +53,12 @@ class ItemsController < ApplicationController
 
   def correct_user
     redirect_to root_path if current_user.id != @item.user.id
+  end
+
+  def correct_item
+    unless Order.exists?(item_id:@item.id)
+    else
+      redirect_to root_path
+    end
   end
 end

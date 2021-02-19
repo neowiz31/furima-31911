@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_params, only: [:index, :create]
+  before_action :correct_item, only: [:index]
   before_action :correct_user, only: [:index]
   
   def index
@@ -38,5 +39,12 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency:'jpy'
     )
+  end
+
+  def correct_item
+    unless Order.exists?(item_id:@item.id)
+    else
+      redirect_to root_path
+    end
   end
 end

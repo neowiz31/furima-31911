@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_params, only: [:index, :create]
   before_action :correct_item, only: [:index]
   before_action :correct_user, only: [:index]

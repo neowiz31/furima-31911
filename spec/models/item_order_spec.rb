@@ -2,12 +2,19 @@ require 'rails_helper'
 
 describe ItemOrder do
   before do
-    @item_order = FactoryBot.build(:item_order)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @item_order = FactoryBot.build(:item_order, item_id: item.id, user_id: user.id)
   end
 
   describe '商品購入手続き' do
     context '商品購入が成功する時' do
-      it "建物名を除く全ての項目が入力されていれば登録できる" do
+      it "全ての項目が入力されていれば登録できる" do
+        expect(@item_order).to be_valid
+      end
+
+      it "建物名が空であっても登録できる" do
+        @item_order.building_name =""
         expect(@item_order).to be_valid
       end
     end
@@ -51,6 +58,12 @@ describe ItemOrder do
 
       it '電話番号が12桁を超えると登録できない' do
         @item_order.phone_number = "080123456789"
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include("Phone number is invalid")
+      end
+
+      it '電話番号が英数字混合では登録できない' do
+        @item_order.phone_number = "0801234567a"
         @item_order.valid?
         expect(@item_order.errors.full_messages).to include("Phone number is invalid")
       end

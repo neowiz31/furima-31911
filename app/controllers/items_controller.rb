@@ -56,9 +56,6 @@ class ItemsController < ApplicationController
   end
 
   def correct_item
-    unless Order.exists?(item_id:@item.id)
-    else
-      redirect_to root_path
-    end
+    redirect_to root_path if Order.exists?(item_id: @item.id)
   end
 end

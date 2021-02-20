@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_params, only: [:index, :create]
-  before_action :correct_item, only: [:index]
-  before_action :correct_user, only: [:index]
+  before_action :correct_item, only: [:index, :create]
+  before_action :correct_user, only: [:index, :create]
   
   def index
     @item_order = ItemOrder.new
@@ -43,9 +43,6 @@ class OrdersController < ApplicationController
   end
 
   def correct_item
-    unless Order.exists?(item_id:@item.id)
-    else
-      redirect_to root_path
-    end
+    redirect_to root_path if Order.exists?(item_id: @item.id)
   end
 end

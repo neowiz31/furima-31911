@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
   before_action :correct_item, only: [:edit, :update, :destory]
   before_action :correct_user, only: [:edit, :update, :destory]
 
-
   def index
     @items = Item.includes(:user).order('created_at DESC')
   end

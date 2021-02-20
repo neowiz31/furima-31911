@@ -4,7 +4,8 @@ describe ItemOrder do
   before do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
-    @item_order = FactoryBot.build(:item_order, item_id: item.id, user_id: user.id)
+    @item_order = FactoryBot.build(:item_order, item_id: item.id, user_id: user.id )
+    sleep(1)
   end
 
   describe '商品購入手続き' do
